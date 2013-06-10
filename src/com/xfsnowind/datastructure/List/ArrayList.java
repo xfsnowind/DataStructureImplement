@@ -4,10 +4,18 @@ import com.xfsnowind.datastructure.ICollection;
 import com.xfsnowind.datastructure.IIterator;
 
 public class ArrayList<E> implements IList<E>{
+   private int currentSize = 0;
+   private static final int DEFAULT_SIZE = 10;
+   private E[] arrays;
+   
+   public ArrayList() {
+      arrays = (E[]) new Object[DEFAULT_SIZE];
+   }
+   
 
    @Override
    public boolean add(E value) {
-      // TODO Auto-generated method stub
+      
       return false;
    }
 
