@@ -11,36 +11,35 @@ public class ArrayList<E> implements IList<E>{
    private E[] arrays;
 
    public ArrayList() {
-      arrays = (E[]) new Object[DEFAULT_SIZE];
+      this.arrays = (E[]) new Object[DEFAULT_SIZE];
    }
 
    @Override
    public boolean add(E value) {
-      // TODO Auto-generated method stub
-      return false;
+      return this.add(this.currentSize, value);
    }
    
    @Override
    public boolean add(int index, E element) {
       if (index >= this.arrays.length) {
+         //increase the length of array to index
          this.arrays = Arrays.copyOf(this.arrays, index + 1);
          this.arrays[index] = element;
       } else {
          if (this.currentSize == this.arrays.length) {
             //extend the size of array with half
             this.arrays = Arrays.copyOf(this.arrays, this.currentSize + (this.currentSize >> 1));
-         } 
+            return false;
+         } else {
+            if (null != this.get(index)) {
+               return false;
+            } else {
+               System.arraycopy(arrays, index, arrays, index + 1, this.currentSize - index);
+               this.arrays[index] = element;
+            }
+         }
       }
-      
-      
-      
-      if (index == this.currentSize) {
-         arrays[this.currentSize++] = element;
-      } else if (index > this.currentSize){
-         System.arraycopy(arrays, index, arrays, index + 1, this.currentSize - index);
-         arrays[index] = element;
-         this.currentSize++;
-      }
+
       this.currentSize++;
       return true;
    }
@@ -53,13 +52,20 @@ public class ArrayList<E> implements IList<E>{
 
    @Override
    public void clear() {
-      // TODO Auto-generated method stub
-      
+      for (int i = 0; i < this.arrays.length; i++) {
+         if (null != this.arrays[i]) {
+            this.arrays[i] = null;
+         }
+      }
    }
 
    @Override
    public boolean contains(Object o) {
-      // TODO Auto-generated method stub
+      for (E tempValue : this.arrays) {
+         if (o.equals(tempValue)) {
+            return true;
+         }
+      }
       return false;
    }
 
@@ -71,14 +77,28 @@ public class ArrayList<E> implements IList<E>{
 
    @Override
    public boolean isEmpty() {
-      // TODO Auto-generated method stub
-      return false;
+      return this.currentSize == 0;
    }
 
    @Override
    public boolean remove(Object object) {
-      // TODO Auto-generated method stub
-      return false;
+      for (int i = 0; i < this.arrays.length; i++) {
+         if (object.equals(this.arrays[i])) {
+            this.arrays[i] = null;
+         }
+      }
+      return true;
+   }
+
+   @Override
+   public E remove(int index) {
+      E tempValue = null;
+      if (index >= this.arrays.length) {
+         return null;
+      } 
+      tempValue = this.get(index);
+      this.arrays[index] = null;
+      return tempValue;
    }
 
    @Override
@@ -89,8 +109,7 @@ public class ArrayList<E> implements IList<E>{
 
    @Override
    public int size() {
-      // TODO Auto-generated method stub
-      return 0;
+      return this.currentSize;
    }
 
    @Override
@@ -103,32 +122,46 @@ public class ArrayList<E> implements IList<E>{
 
    @Override
    public E get(int index) {
-      // TODO Auto-generated method stub
-      return null;
+      return this.arrays[index];
    }
 
    @Override
    public int indexOf(Object o) {
-      // TODO Auto-generated method stub
-      return 0;
+      for (int i = 0; i < this.arrays.length; i++) {
+         if (o.equals(this.arrays[i])) {
+            return i;
+         }
+      }
+      return -1;
    }
 
    @Override
    public int lastIndexOf(Object object) {
-      // TODO Auto-generated method stub
-      return 0;
-   }
-
-   @Override
-   public E remove(int index) {
-      // TODO Auto-generated method stub
-      return null;
+      for (int i = this.arrays.length - 1; i >= 0; i--) {
+         if (o.equals(this.arrays[i])) {
+            return i;
+         }
+      }
+      return -1;
    }
 
    @Override
    public E set(int index, E element) {
-      // TODO Auto-generated method stub
-      return null;
+      E tempValue = null;
+      if (index >= this.arrays.length) {
+         //increase the length of array to index
+         this.arrays = Arrays.copyOf(this.arrays, index + 1);
+      } else if (this.currentSize == this.arrays.length) {
+         //extend the size of array with half
+         this.arrays = Arrays.copyOf(this.arrays, this.currentSize + (this.currentSize >> 1));
+      }
+
+      tempValue = this.get(index);
+      this.arrays[index] = element;
+      if (null != tempValue) {
+         this.currentSize++;
+      }
+      return tempValue;
    }
 
    @Override
@@ -142,7 +175,4 @@ public class ArrayList<E> implements IList<E>{
       // TODO Auto-generated method stub
       return null;
    }
-    
-    
-
 }
