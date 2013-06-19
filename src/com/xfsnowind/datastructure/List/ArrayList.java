@@ -1,5 +1,7 @@
 package com.xfsnowind.datastructure.List;
 
+import java.util.Arrays;
+
 import com.xfsnowind.datastructure.ICollection;
 import com.xfsnowind.datastructure.IIterator;
 
@@ -7,20 +9,44 @@ public class ArrayList<E> implements IList<E>{
    private int currentSize = 0;
    private static final int DEFAULT_SIZE = 10;
    private E[] arrays;
-   
+
    public ArrayList() {
       arrays = (E[]) new Object[DEFAULT_SIZE];
    }
-   
 
    @Override
    public boolean add(E value) {
-      
+      // TODO Auto-generated method stub
       return false;
+   }
+   
+   @Override
+   public boolean add(int index, E element) {
+      if (index >= this.arrays.length) {
+         this.arrays = Arrays.copyOf(this.arrays, index + 1);
+         this.arrays[index] = element;
+      } else {
+         if (this.currentSize == this.arrays.length) {
+            //extend the size of array with half
+            this.arrays = Arrays.copyOf(this.arrays, this.currentSize + (this.currentSize >> 1));
+         } 
+      }
+      
+      
+      
+      if (index == this.currentSize) {
+         arrays[this.currentSize++] = element;
+      } else if (index > this.currentSize){
+         System.arraycopy(arrays, index, arrays, index + 1, this.currentSize - index);
+         arrays[index] = element;
+         this.currentSize++;
+      }
+      this.currentSize++;
+      return true;
    }
 
    @Override
-   public boolean add(int index, E element) {
+   public boolean addAll(ICollection<? extends E> values) {
       // TODO Auto-generated method stub
       return false;
    }
@@ -38,6 +64,44 @@ public class ArrayList<E> implements IList<E>{
    }
 
    @Override
+   public boolean containsAll(ICollection<?> values) {
+      // TODO Auto-generated method stub
+      return false;
+   }
+
+   @Override
+   public boolean isEmpty() {
+      // TODO Auto-generated method stub
+      return false;
+   }
+
+   @Override
+   public boolean remove(Object object) {
+      // TODO Auto-generated method stub
+      return false;
+   }
+
+   @Override
+   public boolean removeAll(ICollection<?> values) {
+      // TODO Auto-generated method stub
+      return false;
+   }
+
+   @Override
+   public int size() {
+      // TODO Auto-generated method stub
+      return 0;
+   }
+
+   @Override
+   public IIterator<E> iterator() {
+      // TODO Auto-generated method stub
+      return null;
+   }
+
+   
+
+   @Override
    public E get(int index) {
       // TODO Auto-generated method stub
       return null;
@@ -50,21 +114,9 @@ public class ArrayList<E> implements IList<E>{
    }
 
    @Override
-   public boolean isEmpty() {
-      // TODO Auto-generated method stub
-      return false;
-   }
-
-   @Override
    public int lastIndexOf(Object object) {
       // TODO Auto-generated method stub
       return 0;
-   }
-
-   @Override
-   public boolean remove(Object object) {
-      // TODO Auto-generated method stub
-      return false;
    }
 
    @Override
@@ -80,12 +132,6 @@ public class ArrayList<E> implements IList<E>{
    }
 
    @Override
-   public int size() {
-      // TODO Auto-generated method stub
-      return 0;
-   }
-
-   @Override
    public Object[] toArray() {
       // TODO Auto-generated method stub
       return null;
@@ -96,29 +142,7 @@ public class ArrayList<E> implements IList<E>{
       // TODO Auto-generated method stub
       return null;
    }
-
-   @Override
-   public IIterator<E> iterator() {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   @Override
-   public boolean addAll(ICollection<? extends E> values) {
-      // TODO Auto-generated method stub
-      return false;
-   }
-
-   @Override
-   public boolean containsAll(ICollection<?> values) {
-      // TODO Auto-generated method stub
-      return false;
-   }
-
-   @Override
-   public boolean removeAll(ICollection<?> values) {
-      // TODO Auto-generated method stub
-      return false;
-   }
+    
+    
 
 }

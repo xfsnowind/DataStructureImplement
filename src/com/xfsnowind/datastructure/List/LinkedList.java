@@ -1,33 +1,18 @@
 package com.xfsnowind.datastructure.List;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import com.xfsnowind.datastructure.ICollection;
+import com.xfsnowind.datastructure.IIterator;
 
-public class LinkedList {
-List<String> d = new List<String>() {
+public class LinkedList<E> implements IList<E> {
 
    @Override
-   public boolean add(String e) {
+   public boolean add(E value) {
       // TODO Auto-generated method stub
       return false;
    }
 
    @Override
-   public void add(int index, String element) {
-      // TODO Auto-generated method stub
-      
-   }
-
-   @Override
-   public boolean addAll(Collection<? extends String> c) {
-      // TODO Auto-generated method stub
-      return false;
-   }
-
-   @Override
-   public boolean addAll(int index, Collection<? extends String> c) {
+   public boolean addAll(ICollection<? extends E> values) {
       // TODO Auto-generated method stub
       return false;
    }
@@ -45,13 +30,49 @@ List<String> d = new List<String>() {
    }
 
    @Override
-   public boolean containsAll(Collection<?> c) {
+   public boolean containsAll(ICollection<?> values) {
       // TODO Auto-generated method stub
       return false;
    }
 
    @Override
-   public String get(int index) {
+   public boolean isEmpty() {
+      // TODO Auto-generated method stub
+      return false;
+   }
+
+   @Override
+   public boolean remove(Object object) {
+      // TODO Auto-generated method stub
+      return false;
+   }
+
+   @Override
+   public boolean removeAll(ICollection<?> values) {
+      // TODO Auto-generated method stub
+      return false;
+   }
+
+   @Override
+   public int size() {
+      // TODO Auto-generated method stub
+      return 0;
+   }
+
+   @Override
+   public IIterator<E> iterator() {
+      // TODO Auto-generated method stub
+      return null;
+   }
+
+   @Override
+   public boolean add(int index, E element) {
+      // TODO Auto-generated method stub
+      return false;
+   }
+
+   @Override
+   public E get(int index) {
       // TODO Auto-generated method stub
       return null;
    }
@@ -63,73 +84,19 @@ List<String> d = new List<String>() {
    }
 
    @Override
-   public boolean isEmpty() {
-      // TODO Auto-generated method stub
-      return false;
-   }
-
-   @Override
-   public Iterator<String> iterator() {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   @Override
-   public int lastIndexOf(Object o) {
+   public int lastIndexOf(Object object) {
       // TODO Auto-generated method stub
       return 0;
    }
 
    @Override
-   public ListIterator<String> listIterator() {
+   public E remove(int index) {
       // TODO Auto-generated method stub
       return null;
    }
 
    @Override
-   public ListIterator<String> listIterator(int index) {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   @Override
-   public boolean remove(Object o) {
-      // TODO Auto-generated method stub
-      return false;
-   }
-
-   @Override
-   public String remove(int index) {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   @Override
-   public boolean removeAll(Collection<?> c) {
-      // TODO Auto-generated method stub
-      return false;
-   }
-
-   @Override
-   public boolean retainAll(Collection<?> c) {
-      // TODO Auto-generated method stub
-      return false;
-   }
-
-   @Override
-   public String set(int index, String element) {
-      // TODO Auto-generated method stub
-      return null;
-   }
-
-   @Override
-   public int size() {
-      // TODO Auto-generated method stub
-      return 0;
-   }
-
-   @Override
-   public List<String> subList(int fromIndex, int toIndex) {
+   public E set(int index, E element) {
       // TODO Auto-generated method stub
       return null;
    }
@@ -145,6 +112,5 @@ List<String> d = new List<String>() {
       // TODO Auto-generated method stub
       return null;
    }
-};
 
 }
