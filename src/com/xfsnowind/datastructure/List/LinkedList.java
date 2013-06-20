@@ -1,9 +1,20 @@
 package com.xfsnowind.datastructure.List;
 
 import com.xfsnowind.datastructure.ICollection;
-import com.xfsnowind.datastructure.IIterator;
+import com.xfsnowind.datastructure.IIterable;
 
+/**
+ * http://en.wikipedia.org/wiki/Linked_list
+ * 
+ * @author feng
+ *
+ * @param <E>
+ */
 public class LinkedList<E> implements IList<E> {
+   
+   private int currentSize = 0;
+   private Node<E> head = null;
+   private Node<E> tail = null;
 
    @Override
    public boolean add(E value) {
@@ -60,7 +71,7 @@ public class LinkedList<E> implements IList<E> {
    }
 
    @Override
-   public IIterator<E> iterator() {
+   public IIterable<E> iterator() {
       // TODO Auto-generated method stub
       return null;
    }

@@ -1,6 +1,6 @@
 package com.xfsnowind.datastructure;
 
-public interface ICollection<E> extends IIterator<E>{
+public interface ICollection<E> extends IIterable<E>{
    /**
     * Add value to the end of collection.
     * 
