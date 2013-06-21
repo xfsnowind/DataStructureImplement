@@ -7,6 +7,7 @@ import com.xfsnowind.datastructure.IIterable;
 
 /**
  * http://en.wikipedia.org/wiki/Dynamic_array
+ * The data in the ArrayList should be continously
  * 
  * @author feng
  *
@@ -36,7 +37,6 @@ public class ArrayList<E> implements IList<E>{
     */
    @Override
    public boolean add(int index, E element) {
-      int originalSize = this.currentSize;
       if (this.currentSize >= this.arrays.length) {
          //increase the length of array to index
          this.arrays = Arrays.copyOf(this.arrays, this.arrays.length + (this.currentSize >> 1));
@@ -72,6 +72,7 @@ public class ArrayList<E> implements IList<E>{
             this.arrays[i] = null;
          }
       }
+      this.currentSize = 0;
    }
 
    /* (non-Javadoc)
@@ -101,7 +102,6 @@ public class ArrayList<E> implements IList<E>{
     */
    @Override
    public boolean isEmpty() {
-      this.size();
       return this.currentSize == 0;
    }
 
@@ -112,7 +112,11 @@ public class ArrayList<E> implements IList<E>{
    public boolean remove(Object object) {
       for (int i = 0; i < this.arrays.length; i++) {
          if (object.equals(this.arrays[i])) {
-            this.arrays[i] = null;
+            if (null == this.remove(i)) {
+               return false;
+            } else {
+               return true;
+            }
          }
       }
       return true;
@@ -124,11 +128,16 @@ public class ArrayList<E> implements IList<E>{
    @Override
    public E remove(int index) {
       E tempValue = null;
-      if (index >= this.arrays.length) {
+      if (index < 0 || index >= this.currentSize) {
          return null;
-      } 
+      }
+      
       tempValue = this.get(index);
       this.arrays[index] = null;
+      if (index != --this.currentSize) {
+         System.arraycopy(this.arrays, index + 1, this.arrays, index, this.currentSize - index);
+      }
+      
       return tempValue;
    }
 
@@ -146,12 +155,6 @@ public class ArrayList<E> implements IList<E>{
     */
    @Override
    public int size() {
-      this.currentSize = 0;
-      for (E element : this.arrays) {
-         if (null != element) {
-            this.currentSize++;
-         }
-      }
       return this.currentSize;
    }
 
@@ -195,7 +198,7 @@ public class ArrayList<E> implements IList<E>{
     */
    @Override
    public int lastIndexOf(Object object) {
-      for (int i = this.arrays.length - 1; i >= 0; i--) {
+      for (int i = this.currentSize - 1; i >= 0; i--) {
          if (object.equals(this.arrays[i])) {
             return i;
          }
@@ -209,14 +212,15 @@ public class ArrayList<E> implements IList<E>{
    @Override
    public E set(int index, E element) {
       E tempValue = null;
-      if (index >= this.arrays.length) {
+      if (this.currentSize >= this.arrays.length) {
          //increase the length of array to index
-         this.arrays = Arrays.copyOf(this.arrays, index + 1);
-      } else if (this.currentSize == this.arrays.length) {
-         //extend the size of array with half
          this.arrays = Arrays.copyOf(this.arrays, this.arrays.length + (this.currentSize >> 1));
       }
-
+      
+      if (index < 0 || index > this.currentSize) {
+         return null;
+      }
+      
       tempValue = this.get(index);
       this.arrays[index] = element;
       if (null == tempValue) {

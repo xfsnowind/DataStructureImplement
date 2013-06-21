@@ -123,5 +123,20 @@ public class LinkedList<E> implements IList<E> {
       // TODO Auto-generated method stub
       return null;
    }
+   
+   private static class Node<T> {
+
+      private T value = null;
+      private Node<T> prev = null;
+      private Node<T> next = null;
+
+      private Node() { }
+
+      private Node(T value) {
+          this.value = value;
+      }
+
+  }
+
 
 }
